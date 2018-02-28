@@ -1,0 +1,11 @@
+@import '../../index.scss';
+
+.uploadArea{
+    :global{
+        .ant-upload-list-item{
+            width: 250px !important;
+        }
+    }
+    width: 250px;
+}
+

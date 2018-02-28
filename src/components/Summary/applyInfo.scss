@@ -1,0 +1,57 @@
+@import '../../index.scss';
+
+.title{
+    color: #666;
+    font-size: 18px;
+    margin: 25px 0 15px 0px;
+  }
+  
+.content{
+    border: 1px solid #ebedf0;
+    border-radius: 2px;
+    padding: 20px;
+  }
+  
+.row{
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.action{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.success {
+    background-color: $success-color;
+    border-color: $success-color;
+    font-weight: 700px;
+}
+
+.warning {
+    background-color: $warning-color;
+    border-color: $warning-color;
+    font-weight: 700px;
+}
+
+.error {
+    background-color: $error-color;
+    border-color: $error-color;
+    font-weight: 700px;
+}
+
+.resultArea{
+    margin-bottom: 30px;
+}
+
+.uploadArea{
+    margin:24px;
+    border-radius: 2px;
+    padding: 20px;
+    border: 1px solid #ebedf0;
+    display: flex;
+    align-items: center;
+}

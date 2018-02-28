@@ -1,0 +1,137 @@
+@import '../index.scss';
+
+$main-width: 1200px;
+.container {
+    width: 100%;
+    height: 100%;
+    min-width: $main-width;
+    padding: 60px 0 0px 0;
+    position: relative;
+}
+
+main {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: $main-width;
+  background: #fff;
+  display: flex;
+  box-shadow: -2px 2px 4px rgb(229,229,229);
+}
+
+.menu {
+  width: 201px;
+  border-right: 1px solid #e8e8e8;
+  svg {
+    font-size: 17px;
+    margin-right: 10px;
+    margin-left: -4px;
+  }
+}
+
+:global{ 
+  .ant-menu-submenu, .ant-menu-submenu-inline {
+    border-bottom: 1px solid #DEDEDE;
+  }
+  .ant-menu-submenu-open {
+    border-bottom: 0px;
+  }
+  .ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
+    border-right: 0px;
+  }
+  .ant-menu-sub.ant-menu-inline {
+    border-top: 1px solid #DEDEDE; 
+    border-bottom: 1px solid #DEDEDE; 
+  }
+}
+
+.routers {
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  margin-bottom: 30px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+
+
+
+// 气泡卡片
+:global {
+  .ant-popover-placement-bottomLeft > .ant-popover-content > .ant-popover-arrow{
+    top:4px;
+    width: 10px;
+    height: 10px;
+  }
+}
+
+// 左侧导航栏的下拉箭头
+:global {
+  .ant-menu-submenu-arrow:before, 
+  .ant-menu-submenu-arrow:after{
+    content: none!important;
+  }
+  .anticon-caret-right {
+    margin-left: 60px;
+    font-size: 12px;
+    color: #888;
+  }
+  .ant-menu-submenu-open .anticon-caret-right {
+    transform: rotateZ(90deg)
+  }
+}
+
+    // margin: 34px auto;
+    // font-family: $font-family-regular;
+    // color: $text-color-secondary;
+
+ul {
+  list-style: none;
+}
+
+:global {
+  .ant-badge-status-error {
+    background-color: $theme-color!important;
+  }
+}
+
+.infoMenu {
+  width: 168px;
+  // span {
+  //   margin-left:35px;
+  // }
+}
+
+.messageBox {
+  width: 318px;
+  padding: 0 2px;
+}
+
+.messageLi {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  line-height: 40px;
+  margin: 0 -17px;
+  padding: 0 16px;
+  &:hover {
+    background-color: #F7F7F7;
+    cursor: pointer;
+  }
+}
+
+.msgData {
+  color: $text-color-tertiary;
+  font-size: 12px;
+}
+
+.messageBtn {
+  text-align: center;
+  background-color: #F7F7F7;
+  height: 40px;
+  line-height: 40px;
+  margin: 0 -17px -26px -17px;
+  padding: 0 16px;
+  border-top:1px solid rgba(221,221,221,0.5)
+}

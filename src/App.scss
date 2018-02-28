@@ -1,0 +1,52 @@
+@import "./index.scss";
+
+html, body, :global(#root) {
+  height: 100%; 
+  background: $theme-background-color;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* global style */
+
+// iconfont default style
+:global {
+  .icon {
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
+}
+
+// antd 的样式：尽量去修改 utils/theme.js 文件，实在修改不了，通过全局样式修改
+
+// antd-Card
+:global {
+  .ant-card-head {
+    border-bottom: 0px !important;
+  }
+  .ant-card-head-title {
+    font-size: 16px;
+  }
+}
+
+:global {
+  .ant-card-head-title {
+    font-family: $font-family-medium;
+  }
+}
+
+// Input
+
+:global {
+  .ant-input-group-addon {
+    border-left: 0px !important;
+    color: $text-color-tertiary !important;
+  }
+}
+

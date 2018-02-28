@@ -1,0 +1,35 @@
+
+// sass 全局属性 以及其他
+
+/* color */ 
+$theme-background-color:#F5F5F5;
+$theme-color: #C4261D;
+
+$disabled-color: rgba(0, 0, 0, 0.25);
+$heading-color:rgba(0, 0, 0, 0.85);
+
+$success-color: #32CD5F;
+$warning-color: #F5A623;
+$error-color: #F04134;
+
+$text-color: #333;
+$text-color-secondary: #666;
+$text-color-tertiary: #999;
+
+$line-color-dark: #ddd;
+$line-color-tint: #eee;
+
+/* font-size */
+$font-size-base: 14px;
+
+/* height */
+$btn-height-lg: 40px;
+
+/* font-family */
+$font-family-medium: PingFangSC-Medium;
+$font-family-regular: PingFangSC-Regular;
+$font-family-en: Helevetica-Neue;
+
+/* board */
+$border-line-gray: 1px solid $line-color-dark;
+$border-line-tint: 1px solid $line-color-tint;

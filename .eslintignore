@@ -1,0 +1,6 @@
+config/*.js
+scripts/*.js
+build/*.js
+src/utils/iconfont.js
+
+node_modules/

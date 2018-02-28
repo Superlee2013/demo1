@@ -1,0 +1,91 @@
+
+.container {
+  width: 100%;
+  min-width: 950px;
+  min-height: 650px;
+  // height: 100%;
+  padding: 60px 0 25px 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top {
+  text-align: center;
+}
+
+.header {
+  height: 44px;
+  line-height: 44px;
+  a {
+    text-decoration: none;
+  }
+}
+
+.logo {
+  height: 44px;
+  vertical-align: top;
+  margin-right: 16px;
+}
+
+.title {
+  font-size: 33px;
+  color: red;
+  font-family: 'Myriad Pro', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  position: relative;
+  top: 2px;
+}
+
+.head{
+  margin-bottom: 36px;
+}
+
+
+.desc {
+  font-size: 14px;
+  color: red;
+  margin-top: 12px;
+  margin-bottom: 40px;
+}
+
+.footer {
+  margin-top: 48px;
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  background-color: rgb(38, 38, 38);
+  text-align: center;
+  bottom: 0;
+
+  div {
+    color: #fff;
+    opacity: 0.8;
+    font-family: PingFangSC;
+    position: absolute;
+    bottom: 33px;
+    font-size: 12px;
+    left: 0;
+    right: 0;
+  }
+}
+
+.bluetTitle {
+  color: #3883ce;
+}
+
+.login{
+  width: 450px;
+  height: 350px;
+  border: 1px solid #eee;
+  background-color: #fff;
+  padding: 30px;
+}
+
+.submit{
+  margin-top: 15px;
+  width: 100%;
+  height: 40px;
+
+}

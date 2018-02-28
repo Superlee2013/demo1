@@ -1,0 +1,40 @@
+@import '../../index.scss';
+
+.descriptCard {
+    padding-top: 30px;
+    padding-bottom: 10px;
+    position: relative;
+
+    :global {
+      .ant-col-2, .ant-col-7, .ant-col-19, .ant-col-4{
+        margin-bottom: 23px;
+      }
+    }
+  }
+
+.title{
+  color: $text-color-secondary;
+  font-size: 18px;
+  margin: 25px 0 15px 0px;
+}
+
+.label {
+  text-align: right;
+  font-family: $font-family-medium;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  color: $text-color;
+  font-family: HelveticaNeue;
+}
+
+.index {
+  position: absolute;
+  color: $theme-color;
+  font-size: 36px;
+  font-family: PingFangSC-Semibold;
+  left: 50px;
+  top: 20px;
+}

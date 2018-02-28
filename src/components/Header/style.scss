@@ -1,0 +1,66 @@
+@import '../../index.scss';
+
+.header {
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    top: 0;
+    background-color: #fff;
+    border-bottom: 2px solid $theme-color;
+    box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.08);
+    
+    .headerContent {
+      display: flex;
+      justify-content: space-between;
+      margin: 0 auto;
+      width: 1200px;
+
+      .title {
+        color: $text-color;
+        font-size: 18px;
+        font-family: $font-family-medium;
+        line-height: 60px;
+        height: 60px;
+        margin-left: 10px;
+      }
+
+      .account {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 40px;
+        margin: auto 0;
+        :first-child {
+          color: $text-color;
+          font-size: 13px;
+          font-family: $font-family-medium;
+        }
+        :nth-child(2){
+          cursor: pointer;
+          color: $text-color-secondary;
+          font-size: 12px;
+          font-family: $font-family-regular;
+        }
+      }
+    }
+}
+
+.headerIcon {
+  font-size: 40px;
+  float: left;
+}
+
+.userInfo {
+  display: flex;
+  justify-content: center;
+  :global {
+    .ant-badge {
+      line-height: 4.3;
+    }
+    .ant-badge-count {
+      top: 10px;
+      left: 21px;
+      background-color: #C4261D;
+    }
+  }
+}
