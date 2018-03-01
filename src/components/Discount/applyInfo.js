@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import styles from "./applyInfo.scss";
-import { Card, Col, Input, message, Row, Button, Modal, Spin } from 'antd';
+import { Card, Col, Input, message, Row, Button, Modal, Alert, Spin } from 'antd';
 import MyUpload from '../Upload';
+import moment from 'moment';
+
+import { UserRole } from '../../common/enum';
+
+import { queryAudit } from '../../services/audit';
+import { insert } from '../../services/discount';
 
 const confirm = Modal.confirm;
 const TextArea = Input.TextArea;
@@ -10,8 +16,63 @@ const TextArea = Input.TextArea;
 class ApplyInfo extends Component {
 
     state = {
+        queryLoading: true,
         attachVisible: false,
-        attachLoading: false
+        attachLoading: false,
+        auditId: this.props.match.params.id,
+        auditInfo: {}
+    }
+
+    componentDidMount() {
+        console.log(this.state.auditId);
+        this.queryAuditInfo(this.props.match.params.id);
+    }
+
+    uploadFile(id, file) {
+        this.state[id] = file;
+    }
+
+    // 查询详情
+    queryAuditInfo(auditId) {
+        const that = this;
+        queryAudit({
+            auditId: auditId
+        }).then(res => {
+            if (res instanceof Error) return;
+            that.setState({
+                queryLoading: false,
+                auditInfo: res.data
+            })
+        })
+    }
+
+    // 贴息申请
+    applyDiscount() {
+        const that = this;
+        const { auditId, discountAmount, discountFund, discountAccount } = this.state;
+        insert({
+            auditId: auditId,
+            discountAmount: discountAmount,
+            discountFund: discountFund,
+            discountAccount: discountAccount
+        }).then(res => {
+            if (res instanceof Error) return;
+            that.setState({
+                attachLoading: false,
+                attachVisible: false
+            });
+            that.props.history.push("../summary");
+        })
+    }
+
+    renderImgArea(url) {
+        return (
+            <div style={{ width: 250, height: 120 }}>
+                {
+                    url ? <img src={url} className={styles.imageArea} onClick={() => { window.open(url) }} /> : <Alert message="未上传" type="warning" />
+                }
+            </div>
+        )
     }
 
     renderSingleColData(labelName, data) {
@@ -25,9 +86,6 @@ class ApplyInfo extends Component {
         )
     }
 
-    uploadFile(id, file) {
-        this.state[id] = file;
-    }
 
     renderInfo(data) {
         return (
@@ -36,16 +94,24 @@ class ApplyInfo extends Component {
                     {this.renderSingleColData("姓名", data.name)}
                     {this.renderSingleColData("证件号码", data.idNumber)}
                 </Row>
+                <Row className={styles.row}>
+                    {this.renderSingleColData("性别", data.sex)}
+                    {this.renderSingleColData("年龄", data.age)}
+                </Row>
 
                 <Row className={styles.row}>
                     <Col span={4} style={{ fontWeight: 700 }}>
                         身份证:
                     </Col>
                     <Col span={8}>
-                        <div style={{ background: 'red', width: 250, height: 100 }}></div>
+                        {
+                            this.renderImgArea(data.idFaceUrl)
+                        }
                     </Col>
                     <Col span={8}>
-                        <div style={{ background: 'yellow', width: 250, height: 100 }}></div>
+                        {
+                            this.renderImgArea(data.idBackUrl)
+                        }
                     </Col>
                 </Row>
 
@@ -70,18 +136,15 @@ class ApplyInfo extends Component {
                     {this.renderSingleColData("担保人B", data.guaranteeB)}
                     {this.renderSingleColData("担保人B身份证", data.guarenteeBIdNumber)}
                 </Row>
-                <Row className={styles.row}>
-                    {this.renderSingleColData("担保人B", data.guaranteeB)}
-                    {this.renderSingleColData("担保人B身份证", data.guarenteeBIdNumber)}
-                </Row>
+
 
                 <Row className={styles.row}>
                     {this.renderSingleColData("担保方式", data.guaranteeForm)}
                     {this.renderSingleColData("贷款余额", data.loanBalance)}
                 </Row>
                 <Row className={styles.row}>
-                    {this.renderSingleColData("起始日期", data.startDate)}
-                    {this.renderSingleColData("到期日期", data.endDate)}
+                    {this.renderSingleColData("起始日期", moment(Number.parseInt(data.startDate)).format('YYYY-MM-DD'))}
+                    {this.renderSingleColData("到期日期", moment(Number.parseInt(data.endDate)).format('YYYY-MM-DD'))}
                 </Row>
 
                 <Row className={styles.row} style={{ marginTop: 30 }}>
@@ -89,17 +152,21 @@ class ApplyInfo extends Component {
                     {this.renderSingleColData("贫困户A身份证", data.poorHouseholdsAId)}
                 </Row>
                 <Row className={styles.row}>
-                    {this.renderSingleColData("贫困户A日期", data.poorHouseholdsADate)}
+                    {this.renderSingleColData("贫困户A日期", moment(Number.parseInt(data.poorHouseholdsADate)).format('YYYY-MM-DD'))}
                 </Row>
                 <Row className={styles.row}>
                     <Col span={4} style={{ fontWeight: 700 }}>
                         贫困户A身份证
                     </Col>
                     <Col span={8}>
-                        <div style={{ background: 'red', width: 250, height: 100 }}></div>
+                        {
+                            this.renderImgArea(data.poorHouseholdsAIdFaceUrl)
+                        }
                     </Col>
                     <Col span={8}>
-                        <div style={{ background: 'yellow', width: 250, height: 100 }}></div>
+                        {
+                            this.renderImgArea(data.poorHouseholdsAIdBackUrl)
+                        }
                     </Col>
                 </Row>
 
@@ -108,17 +175,21 @@ class ApplyInfo extends Component {
                     {this.renderSingleColData("贫困户B身份证", data.poorHouseholdsBId)}
                 </Row>
                 <Row className={styles.row}>
-                    {this.renderSingleColData("贫困户B日期", data.poorHouseholdsBDate)}
+                    {this.renderSingleColData("贫困户B日期", moment(Number.parseInt(data.poorHouseholdsBDate)).format('YYYY-MM-DD'))}
                 </Row>
                 <Row className={styles.row}>
                     <Col span={4} style={{ fontWeight: 700 }}>
                         贫困户B身份证
                     </Col>
                     <Col span={8}>
-                        <div style={{ background: 'red', width: 250, height: 100 }}></div>
+                        {
+                            this.renderImgArea(data.poorHouseholdsBIdFaceUrl)
+                        }
                     </Col>
                     <Col span={8}>
-                        <div style={{ background: 'yellow', width: 250, height: 100 }}></div>
+                        {
+                            this.renderImgArea(data.poorHouseholdsBIdBackUrl)
+                        }
                     </Col>
                 </Row>
 
@@ -127,14 +198,10 @@ class ApplyInfo extends Component {
                         借贷合同:
                     </Col>
                     <Col span={8}>
-                        <div style={{ background: 'red', width: 250, height: 100 }}></div>
+                        {
+                            this.renderImgArea(data.loanContractUrl)
+                        }
                     </Col>
-                    {/* <Col span={4} style={{fontWeight:700}}>
-                        审核表:
-                    </Col>
-                    <Col span={8}>
-                        <div style={{background:'red',width:250,height:100}}></div>
-                    </Col> */}
                 </Row>
             </div>
         )
@@ -164,18 +231,19 @@ class ApplyInfo extends Component {
     hideAttachModal = () => {
         this.setState({
             attachVisible: false,
-            attachLoading:false
+            attachLoading: false
         });
     }
 
     handelAttach() {
         console.log(this.state);
         // this.hideAttachModal();
-        if(!this.state.discountAmount||!this.state.discountFund||!this.state.discountAccount){
+        if (!this.state.discountAmount || !this.state.discountFund || !this.state.discountAccount) {
             message.error("关键不能为空", 2);
             return;
         }
-        this.setState({attachLoading:true})
+        this.setState({ attachLoading: true });
+        this.applyDiscount();
     }
 
     attachItemInput(event, id) {
@@ -187,17 +255,26 @@ class ApplyInfo extends Component {
 
 
     render() {
-        let userRole = 1;
+        if (this.state.queryLoading) {
+            return (
+                <Card title="贷款申请表详情" bordered={false}>
+                    <div className={styles.loadingArea}>
+                        <Spin />
+                    </div>
+                </Card>
+            )
+        }
+        let userRole = Number.parseInt(sessionStorage.getItem("role"));
         return (
             <React.Fragment>
                 <Card title="贷款申请表详情" bordered={false}>
                     {
-                        this.renderInfo({})
+                        this.renderInfo(this.state.auditInfo)
                     }
                 </Card>
 
                 {
-                    userRole === 1 ? (
+                    userRole === UserRole.BANK ? (
                         <div className={styles.action}>
                             <Button type="primary" size="large" htmlType="submit" onClick={this.showConfirm.bind(this)}>贴息</Button>
                             <Button size="large" style={{ marginLeft: 50 }} onClick={() => { console.log(this.props.history.goBack()) }}>返回</Button>

@@ -52,6 +52,26 @@
     border-radius: 2px;
     padding: 20px;
     border: 1px solid #ebedf0;
+}
+
+.uploadRow{
+    margin:24px;
+    padding: 20px;
     display: flex;
     align-items: center;
+}
+
+.loadingArea{
+    text-align: center;
+    background: rgba(0,0,0,0.05);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 60px 50px;
+    margin: 20px 0;
+}
+
+.imageArea{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
 }

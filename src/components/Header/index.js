@@ -7,7 +7,10 @@ export default function Header({ selectCompany, userInfo, basicInfo }) {
   return (
     <header className={styles.header}>
       <div className={styles.headerContent}>
-        <div className={styles.title}>福建农信</div>
+        <div className={styles.title}>
+          <img src={require("../../asserts/fjxn_red.png")} alt="" width={35} height={35} style={{ marginRight: 8 }} />
+          福建农信
+          </div>
         {
           userInfo &&
           <div className={styles.userInfo}>

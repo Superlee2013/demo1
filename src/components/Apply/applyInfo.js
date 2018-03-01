@@ -143,11 +143,11 @@ class ApplyInfo extends Component {
                 </Row>
                 <Row className={styles.row}>
                     {this.renderSingleColData("担保人A", data.guaranteeA)}
-                    {this.renderSingleColData("担保人A身份证", data.guarenteeAIdNumber)}
+                    {this.renderSingleColData("担保人A身份证", data.guaranteeAIdNumber)}
                 </Row>
                 <Row className={styles.row}>
                     {this.renderSingleColData("担保人B", data.guaranteeB)}
-                    {this.renderSingleColData("担保人B身份证", data.guarenteeBIdNumber)}
+                    {this.renderSingleColData("担保人B身份证", data.guaranteeBIdNumber)}
                 </Row>
 
 

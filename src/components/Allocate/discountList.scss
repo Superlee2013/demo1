@@ -1,0 +1,10 @@
+@import '../../index.scss';
+
+.tableOperations{
+    margin-bottom: 16px;
+    :global {
+        .ant-btn {
+          border-radius: 3px;
+        }
+      }
+}

@@ -16,6 +16,15 @@ export async function queryAuditInfoWithPaging(params) {
     });
 }
 
+export async function queryAuditInfoByStateWithPaging(params) {
+    return request('/audit/queryAuditInfoByStateWithPaging', {
+        method: 'POST',
+        body: params,
+    });
+}
+
+
+
 export async function queryAudit(params) {
     return request('/audit/queryAudit', {
         method: 'POST',

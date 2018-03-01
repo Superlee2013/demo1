@@ -26,7 +26,7 @@ class Discount extends Component {
     render() {
         return (
             <div>
-                <h3 style={{marginBottom:20}}>贴息人员汇总</h3>
+                <h3 style={{marginBottom:20}}>划拨款项</h3>
                 <div className={styles.applyList}>
                     <DiscountList history={this.props.history} match={this.props.match}></DiscountList>
                 </div>

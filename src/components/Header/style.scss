@@ -60,7 +60,8 @@
     .ant-badge-count {
       top: 10px;
       left: 21px;
-      background-color: #C4261D;
+      // background-color: #C4261D;
+      background-color: $theme-color;
     }
   }
 }

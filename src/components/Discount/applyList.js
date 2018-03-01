@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import styles from "./applyList.scss";
 
+import moment from 'moment';
+
 import { Table, Icon, Divider, Pagination } from 'antd';
+
+import { queryDiscountList } from '../../services/discount';
+import { queryAuditInfoByStateWithPaging } from '../../services/audit';
+
+import { UserRole,AuditState } from '../../common/enum';
 
 const columns = [{
     title: '序号',
@@ -28,11 +35,13 @@ const columns = [{
     align: 'center',
     dataIndex: 'startDate',
     key: 'startDate',
+    render: val => <span>{moment(Number.parseInt(val)).format('YYYY-MM-DD')}</span>
 }, {
     title: '到期日期',
     align: 'center',
     dataIndex: 'endDate',
     key: 'endDate',
+    render: val => <span>{moment(Number.parseInt(val)).format('YYYY-MM-DD')}</span>
 }, {
     title: '贷款金额(万元)',
     align: 'center',
@@ -83,31 +92,78 @@ class ApplyList extends Component {
 
     state = {
         dataLoading: false,
-        data: data
+        data: [],
+        pageSize: 5,
+        totalSize: 0,
+        currentPage: 1
+    }
+
+
+    componentDidMount() {
+        this.queryDiscountAuditList(1, this.state.pageSize || 10);
     }
 
     handelTableDataIndex(data) {
+        const { pageSize, currentPage } = this.state;
         if (!data || data.length == 0) return data;
         return data.map((item, i) => {
-            item.key = i+1;
+            item.key = pageSize * (currentPage-1) + i + 1;
             return item;
         })
+    }
+
+    queryDiscountAuditList(page, pageSize) {
+        const that = this;
+        that.setState({ dataLoading: true });
+        queryAuditInfoByStateWithPaging(
+            {
+                state: AuditState.LOAN_CONTRACT_UPLOADED,
+                startPage: page,
+                pageSize: pageSize
+            }
+        ).then(res => {
+            if (res instanceof Error) return;
+            let totalSize = res.data.totalSize;
+            let dataSource = res.data.elements;
+            that.setState({
+                dataLoading: false,
+                data: dataSource,
+                totalSize: totalSize,
+                currentPage: page
+            });
+        });
+    }
+
+    onPageChange(page, pageSize) {
+        this.queryAuditInfoList(page, pageSize);
+    }
+
+    onShowSizeChange(current, pageSize) {
+        console.log(current, pageSize);
     }
 
     render() {
         const { data } = this.state;
         let dataSource = this.handelTableDataIndex(data);
+        const { pageSize, totalSize } = this.state;
         return (
             <div>
                 <Table
                     loading={this.state.dataLoading}
+                    pagination={
+                        {
+                            pageSize: pageSize || 5,
+                            total: totalSize,
+                            onChange: this.onPageChange.bind(this),
+                        }}
+                    
                     columns={columns}
                     dataSource={dataSource}
                     onRow={(record) => {
                         return {
                             onClick: () => {
                                 console.log(record);
-                                let id = record.key;
+                                let id = record.auditId;
                                 this.props.history.push(`${this.props.match.url}/${id}`)
                             }
                         };

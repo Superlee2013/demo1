@@ -8,6 +8,7 @@ import Form from '../components/Form';
 import Apply from '../components/Apply';
 import Discount from '../components/Discount';
 import Summary from '../components/Summary';
+import Allocate from '../components/Allocate';
 
 import { UserRole } from '../common/enum';
 import { RoleName } from '../common/filter';
@@ -20,7 +21,7 @@ class BasicLayout extends Component {
 
   }
 
-  componentDidMount(){
+  componentDidMount() {
     // let userRole = 
   }
 
@@ -79,6 +80,24 @@ class BasicLayout extends Component {
     )
   }
 
+  // 贴息拨款
+  // 省财政局
+  renderAllocateItem(userRole) {
+    if (userRole !== UserRole.PROVINCIAL_FINANCE_BUREAU) return;
+    return (
+      <Menu.Item key="allocate" >
+        <React.Fragment>
+          <svg className="icon" aria-hidden="true">
+            <use xlinkHref="#icon-download" />
+          </svg><span>划拨款项</span>
+        </React.Fragment>
+        <Link to={`${this.props.match.url}/allocate`}>
+          <span>贴息拨款</span>
+        </Link>
+      </Menu.Item>
+    )
+  }
+
 
 
   logout() {
@@ -123,6 +142,7 @@ class BasicLayout extends Component {
               {this.renderApplyItem(userRole)}
               {this.renderDiscountItem(userRole)}
               {this.renderSummaryItem(userRole)}
+              {this.renderAllocateItem(userRole)}
 
 
 
@@ -143,6 +163,7 @@ class BasicLayout extends Component {
               <Route path={`${this.props.match.url}/apply`} component={Apply} />
               <Route path={`${this.props.match.url}/discount`} component={Discount} />
               <Route path={`${this.props.match.url}/summary`} component={Summary} />
+              <Route path={`${this.props.match.url}/allocate`} component={Allocate} />
               <Route path={`${this.props.match.url}/formtest`} component={Form} />
             </Switch>
           </div>

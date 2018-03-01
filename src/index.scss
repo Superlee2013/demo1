@@ -4,6 +4,7 @@
 /* color */ 
 $theme-background-color:#F5F5F5;
 $theme-color: #C4261D;
+// $theme-color: #333333;
 
 $disabled-color: rgba(0, 0, 0, 0.25);
 $heading-color:rgba(0, 0, 0, 0.85);
@@ -33,3 +34,9 @@ $font-family-en: Helevetica-Neue;
 /* board */
 $border-line-gray: 1px solid $line-color-dark;
 $border-line-tint: 1px solid $line-color-tint;
+
+:global{
+    .ant-alert{
+        border-radius: 2px;
+    }
+}

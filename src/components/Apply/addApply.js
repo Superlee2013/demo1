@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Input, Select, Row, Col, Card, DatePicker, message, Spin } from 'antd';
+import { Form, Button, Input, Select, Row, Col, Card, DatePicker, message, Spin, Anchor } from 'antd';
 import moment from 'moment';
 import styles from './addApply.scss';
 
@@ -8,6 +8,8 @@ import MyUpload from '../Upload';
 import { MD5 } from "crypto-js";
 
 import { insert } from '../../services/audit';
+
+const { Link } = Anchor;
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -182,11 +184,11 @@ class FormIndex extends Component {
     return (
       <Card title="申请贷款" bordered={false}>
 
-
         <Form onSubmit={this.handleSubmit}>
           {this.renderRowItem("申请人姓名", "name", "哈哈", "证件号码", "idNumber", "4212313131")}
           {this.renderRowItem("性别", "sex", "男", "年龄", "age", "22")}
-          {this.renderRowItem("联系电话", "phone", "189323232", "所在乡(镇、街道)村(居)", "location", "12312")}
+          {this.renderRowItem("联系电话", "phone", "189323232","贷款项目名称", "projectName", "搞事")}
+          {this.renderRowItem("所在乡(镇、街道)村(居)", "location", "12312", "详细地址", "familyAddress", "12312号")}
           {this.renderRowItem("贷款金额(单位：万元)", "loanAmount", "123", "贷款用途", "useOfLoan", "买房")}
           {/* {rowItem("审贷期限", "loanPeriod", "类型", "loanType")} */}
 
@@ -209,7 +211,7 @@ class FormIndex extends Component {
             {this.renderDropList("类型", "loanType")}
           </Row>
 
-          {this.renderRowItem("担保人A", "guaranteeA", "AAA", "担保人A身份证", "guarenteeAIdNumber", "123121")}
+          {this.renderRowItem("担保人A", "guaranteeA", "AAA", "担保人A身份证", "guaranteeAIdNumber", "123121")}
           {this.renderRowItem("担保人B", "guaranteeB", "BBB", "担保人B身份证", "guaranteeBIdNumber", "12312")}
           {this.renderRowItem("贫困户A姓名", "poorHouseholdsAName", "贫困A", "贫困户A身份证", "poorHouseholdsAId", "42421142")}
           {this.renderDataItem("贫困户A日期", "poorHouseholdsADate", moment('2018-02-02', 'YYYY-MM-DD'))}

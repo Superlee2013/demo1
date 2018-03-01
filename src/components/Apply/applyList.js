@@ -3,7 +3,7 @@ import styles from "./applyList.scss";
 
 import moment from 'moment';
 
-import { Table, Icon, Divider, Pagination } from 'antd';
+import { Table, Icon, Divider, Pagination, Menu, Dropdown } from 'antd';
 
 import { queryAuditInfoWithPaging } from '../../services/audit';
 
@@ -93,7 +93,21 @@ class ApplyList extends Component {
         data: [],
         pageSize: 5,
         totalSize: 0,
-        currentPage: 1
+        currentPage: 1,
+        currentState: "全部"
+    }
+
+    menu = (
+        <Menu onClick={this.stateChoose.bind(this)}>
+            <Menu.Item key="全部">全部显示</Menu.Item>
+            <Menu.Item key="状态1">状态1</Menu.Item>
+            <Menu.Item key="状态2">状态2</Menu.Item>
+        </Menu>
+    );
+
+    stateChoose({ key }) {
+        console.log(`Click on item ${key}`);
+        this.setState({ currentState: key });
     }
 
 
@@ -105,7 +119,7 @@ class ApplyList extends Component {
         const { pageSize, currentPage } = this.state;
         if (!data || data.length == 0) return data;
         return data.map((item, i) => {
-            item.key = pageSize * (currentPage-1) + i + 1;
+            item.key = pageSize * (currentPage - 1) + i + 1;
             return item;
         })
     }
@@ -145,6 +159,14 @@ class ApplyList extends Component {
         const { pageSize, totalSize } = this.state;
         return (
             <div>
+                <div style={{ marginBottom: 20, textAlign: 'right' }}>
+                    <Dropdown overlay={this.menu}>
+                        <a className="ant-dropdown-link">
+                            当前显示: {this.state.currentState} <Icon type="down" />
+                        </a>
+                    </Dropdown>
+                </div>
+
                 <Table
                     loading={this.state.dataLoading}
                     pagination={
